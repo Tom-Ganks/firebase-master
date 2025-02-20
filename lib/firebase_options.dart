@@ -47,31 +47,31 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDvL9EetEZYZ5Z--94xJZr0B45Vl1hY-To',
-    appId: '1:357443021886:web:016fd5fb6695e77c6af56f',
-    messagingSenderId: '357443021886',
-    projectId: 'apptarefa-91280',
-    authDomain: 'apptarefa-91280.firebaseapp.com',
-    storageBucket: 'apptarefa-91280.firebasestorage.app',
-    measurementId: 'G-XJ12Y3LZQH',
+    apiKey: 'AIzaSyDkYt2_ZR_w6d0y9X49Hp7ZhX_Czroj0_c',
+    appId: '1:1012183596405:web:40a0072b92662b5c4e673c',
+    messagingSenderId: '1012183596405',
+    projectId: 'app-livros-322be',
+    authDomain: 'app-livros-322be.firebaseapp.com',
+    storageBucket: 'app-livros-322be.firebasestorage.app',
+    measurementId: 'G-ZX60XZDFZV',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAi7xFGwWxK7SZtU5APLXx5mMiwzEi0fsk',
-    appId: '1:357443021886:android:bd3d20f4f96f67576af56f',
-    messagingSenderId: '357443021886',
-    projectId: 'apptarefa-91280',
-    storageBucket: 'apptarefa-91280.firebasestorage.app',
+    apiKey: 'AIzaSyA5n5cWY9kNldJqOotFppQg4HQNMlJY1Eo',
+    appId: '1:1012183596405:android:07ea353e712039c04e673c',
+    messagingSenderId: '1012183596405',
+    projectId: 'app-livros-322be',
+    storageBucket: 'app-livros-322be.firebasestorage.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDvL9EetEZYZ5Z--94xJZr0B45Vl1hY-To',
-    appId: '1:357443021886:web:598c94180331ece96af56f',
-    messagingSenderId: '357443021886',
-    projectId: 'apptarefa-91280',
-    authDomain: 'apptarefa-91280.firebaseapp.com',
-    storageBucket: 'apptarefa-91280.firebasestorage.app',
-    measurementId: 'G-3WCJKDMESB',
+    apiKey: 'AIzaSyDkYt2_ZR_w6d0y9X49Hp7ZhX_Czroj0_c',
+    appId: '1:1012183596405:web:9be390c72fc067744e673c',
+    messagingSenderId: '1012183596405',
+    projectId: 'app-livros-322be',
+    authDomain: 'app-livros-322be.firebaseapp.com',
+    storageBucket: 'app-livros-322be.firebasestorage.app',
+    measurementId: 'G-EX1E7VWG4W',
   );
 
 }

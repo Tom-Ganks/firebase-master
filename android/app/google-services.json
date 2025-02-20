@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "357443021886",
-    "project_id": "apptarefa-91280",
-    "storage_bucket": "apptarefa-91280.firebasestorage.app"
+    "project_number": "1012183596405",
+    "project_id": "app-livros-322be",
+    "storage_bucket": "app-livros-322be.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:357443021886:android:bd3d20f4f96f67576af56f",
+        "mobilesdk_app_id": "1:1012183596405:android:07ea353e712039c04e673c",
         "android_client_info": {
           "package_name": "com.example.app_gerenciamento_de_tarefas"
         }
@@ -15,7 +15,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAi7xFGwWxK7SZtU5APLXx5mMiwzEi0fsk"
+          "current_key": "AIzaSyA5n5cWY9kNldJqOotFppQg4HQNMlJY1Eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012183596405:android:c5f5189460730b2b4e673c",
+        "android_client_info": {
+          "package_name": "com.example.app_livros"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5n5cWY9kNldJqOotFppQg4HQNMlJY1Eo"
         }
       ],
       "services": {
