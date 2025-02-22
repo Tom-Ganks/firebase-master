@@ -4,6 +4,7 @@ import 'package:app_gerenciamento_de_tarefas/data/repository/livro_repository.da
 import 'package:app_gerenciamento_de_tarefas/presentation/viewmodel/livro_viewmodel.dart';
 import 'cadastro_livro_page.dart';
 import 'login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Importe o Firebase Auth
 
 class LivroPage extends StatefulWidget {
   const LivroPage({super.key});
@@ -15,11 +16,23 @@ class LivroPage extends StatefulWidget {
 class LivroPageState extends State<LivroPage> {
   final LivroViewmodel _viewModel = LivroViewmodel(LivroRepository());
   late Future<List<Livro>> _livrosFuture;
+  final FirebaseAuth _auth = FirebaseAuth.instance; // Instância do Firebase Auth
 
   @override
   void initState() {
     super.initState();
     _livrosFuture = _viewModel.getLivros();
+  }
+
+  // Método para fazer logout
+  Future<void> _logout() async {
+    await _auth.signOut();
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    }
   }
 
   @override
@@ -29,11 +42,31 @@ class LivroPageState extends State<LivroPage> {
         title: const Text('Catálogo de Livros', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.person, color: Colors.white), // Ícone de pessoa
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
+            // Mostrar um menu com a opção de logout
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Opções'),
+                  content: const Text('Deseja fazer logout?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context); // Fechar o diálogo
+                      },
+                      child: const Text('Cancelar'),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        await _logout(); // Fazer logout
+                      },
+                      child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                    ),
+                  ],
+                );
+              },
             );
           },
         ),
@@ -77,15 +110,22 @@ class LivroPageState extends State<LivroPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const CadastroLivroPage()),
           );
+
+          // Se um livro foi cadastrado, recarregue a lista
+          if (result == true) {
+            setState(() {
+              _livrosFuture = _viewModel.getLivros();
+            });
+          }
         },
         backgroundColor: Colors.teal,
         child: const Icon(Icons.add, color: Colors.white),
-      ),
+      )
     );
   }
 }

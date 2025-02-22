@@ -1,1 +1,27 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"app-livros-322be","appId":"1:1012183596405:android:07ea353e712039c04e673c","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"app-livros-322be","configurations":{"android":"1:1012183596405:android:07ea353e712039c04e673c","web":"1:1012183596405:web:40a0072b92662b5c4e673c","windows":"1:1012183596405:web:9be390c72fc067744e673c"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "app-livros-322be",
+          "appId": "1:1012183596405:android:07ea353e712039c04e673c",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "app-livros-322be",
+          "configurations": {
+            "android": "1:1012183596405:android:07ea353e712039c04e673c",
+            "web": "1:1012183596405:web:40a0072b92662b5c4e673c",
+            "windows": "1:1012183596405:web:9be390c72fc067744e673c"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}

@@ -15,7 +15,7 @@ class CadastroLivroPageState extends State<CadastroLivroPage> {
   final _formKey = GlobalKey<FormState>();
   final tituloController = TextEditingController();
   final autorController = TextEditingController();
-  final descricaoController = TextEditingController();
+  final sinopseController = TextEditingController();
   double avaliacao = 0.0; // Avaliação inicial
   final LivroViewmodel _viewModel = LivroViewmodel(LivroRepository());
 
@@ -25,8 +25,8 @@ class CadastroLivroPageState extends State<CadastroLivroPage> {
         final livro = Livro(
           titulo: tituloController.text,
           autor: autorController.text,
-          descricao: descricaoController.text,
-          avaliacao: avaliacao.toInt(), // Converte para int
+          descricao: sinopseController.text,
+          avaliacao: avaliacao.toInt(),
         );
 
         await _viewModel.addLivro(livro);
@@ -35,7 +35,7 @@ class CadastroLivroPageState extends State<CadastroLivroPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Livro adicionado com sucesso!')),
           );
-          Navigator.pop(context); // Fecha a página após salvar
+          Navigator.pop(context, true); // Retorna "true" para indicar sucesso
         }
       }
     } catch (e) {
@@ -107,7 +107,7 @@ class CadastroLivroPageState extends State<CadastroLivroPage> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: descricaoController,
+                controller: sinopseController,
                 maxLines: 5,
                 decoration: InputDecoration(
                   labelText: 'Sinopse', // Alterado para "Sinopse"
