@@ -90,18 +90,39 @@ class LivroPageState extends State<LivroPage> {
                   child: ListTile(
                     title: Text(livro.titulo),
                     subtitle: Text(livro.autor),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        _viewModel.deleteLivro(livro.id!);
-                        setState(() {
-                          _livrosFuture = _viewModel.getLivros();
-                        });
-                      },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () {
+                            // Navegar para a página de edição do livro
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CadastroLivroPage(livro: livro),
+                              ),
+                            ).then((result) {
+                              // Recarregar a lista após a edição
+                              if (result == true) {
+                                setState(() {
+                                  _livrosFuture = _viewModel.getLivros();
+                                });
+                              }
+                            });
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            _viewModel.deleteLivro(livro.id!);
+                            setState(() {
+                              _livrosFuture = _viewModel.getLivros();
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    onTap: () {
-                      // Navegar para a página de edição do livro
-                    },
                   ),
                 );
               },
@@ -125,7 +146,7 @@ class LivroPageState extends State<LivroPage> {
         },
         backgroundColor: Colors.teal,
         child: const Icon(Icons.add, color: Colors.white),
-      )
+      ),
     );
   }
 }

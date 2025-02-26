@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart'; // Importe o pacote
-import '../../data/model/livro_model.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:app_gerenciamento_de_tarefas/data/model/livro_model.dart';
+import 'package:app_gerenciamento_de_tarefas/presentation/viewmodel/livro_viewmodel.dart';
 import '../../data/repository/livro_repository.dart';
-import '../viewmodel/livro_viewmodel.dart';
 
 class CadastroLivroPage extends StatefulWidget {
-  const CadastroLivroPage({super.key});
+  final Livro? livro; // Livro a ser editado (opcional)
+
+  const CadastroLivroPage({super.key, this.livro});
 
   @override
   CadastroLivroPageState createState() => CadastroLivroPageState();
@@ -19,21 +21,40 @@ class CadastroLivroPageState extends State<CadastroLivroPage> {
   double avaliacao = 0.0; // Avaliação inicial
   final LivroViewmodel _viewModel = LivroViewmodel(LivroRepository());
 
+  @override
+  void initState() {
+    super.initState();
+    // Se um livro foi passado, preencha os campos com os dados existentes
+    if (widget.livro != null) {
+      tituloController.text = widget.livro!.titulo;
+      autorController.text = widget.livro!.autor;
+      sinopseController.text = widget.livro!.descricao;
+      avaliacao = widget.livro!.avaliacao.toDouble();
+    }
+  }
+
   Future<void> saveLivro() async {
     try {
       if (_formKey.currentState!.validate()) {
         final livro = Livro(
+          id: widget.livro?.id, // Mantém o ID se estiver editando
           titulo: tituloController.text,
           autor: autorController.text,
           descricao: sinopseController.text,
           avaliacao: avaliacao.toInt(),
         );
 
-        await _viewModel.addLivro(livro);
+        if (widget.livro == null) {
+          // Adicionar novo livro
+          await _viewModel.addLivro(livro);
+        } else {
+          // Atualizar livro existente
+          await _viewModel.updateLivro(livro.id!, livro);
+        }
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Livro adicionado com sucesso!')),
+            const SnackBar(content: Text('Livro salvo com sucesso!')),
           );
           Navigator.pop(context, true); // Retorna "true" para indicar sucesso
         }
@@ -57,8 +78,17 @@ class CadastroLivroPageState extends State<CadastroLivroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de Livro', style: TextStyle(color: Colors.white)),
+        title: Text(
+          widget.livro == null ? 'Cadastro de Livro' : 'Editar Livro',
+          style: const TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.teal,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // Volta para a página anterior
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -110,7 +140,7 @@ class CadastroLivroPageState extends State<CadastroLivroPage> {
                 controller: sinopseController,
                 maxLines: 5,
                 decoration: InputDecoration(
-                  labelText: 'Sinopse', // Alterado para "Sinopse"
+                  labelText: 'Sinopse',
                   labelStyle: TextStyle(color: Colors.teal.shade700),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
